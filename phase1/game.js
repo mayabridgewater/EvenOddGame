@@ -2,15 +2,20 @@ const player = require('./players');
 
 class Game {
     constructor() {
-        this.player1 = null;
-        this.player2 = null;
+        this.players = [];
         this.round = 0;
         this.currentNum = undefined;
+        this.tournament = false;
+        this.current2Players = [];
     }
 
-    setPlayers(name1, name2) {
-        this.player1 = new player(name1);
-        this.player2 = new player(name2);
+    playTournament() {
+        this.tournament = true
+    }
+
+    setPlayer(name) {
+        const newPlayer = new player(name);
+        this.players.push(newPlayer)
     }
 
     startGame() {
@@ -29,19 +34,19 @@ class Game {
     }
 
     evenNumber() {
-        this.player1.wins += 1;
+        this.players[0].wins += 1;
         return 'even'
     }
 
     oddNumber() {
-        this.player2.wins += 1;
+        this.players[1].wins += 1;
         return 'odd'
     }
 
     checkWins() {
-        if (this.player1.wins === 3) {
+        if (this.players[0].wins === 3) {
             return 1
-        } else if (this.player2.wins === 3) {
+        } else if (this.players[1].wins === 3) {
             return 2
         }
         return false
